@@ -39,16 +39,18 @@ class DirectorsController < ApplicationController
   end
 
   def max_dob
-    # youngest = largest dob
-    ordered = Director.order({ :dob => :desc })
-    @director = ordered.at(0)
-    render({ :template => "directors/max_dob" })
+    ordered_directors = Director.order({ :dob => :desc })
+    @youngest = ordered_directors.at(0)
+
+    # render the view file app/views/directors/youngest.html.erb
+    render({ :template => "directors/youngest" })
   end
 
   def min_dob
-    # eldest = smallest dob
-    ordered = Director.order({ :dob => :asc })
-    @director = ordered.at(0)
-    render({ :template => "directors/min_dob" })
+    ordered_directors = Director.order({ :dob => :asc })
+    @eldest = ordered_directors.at(0)
+
+    # render the view file app/views/directors/eldest.html.erb
+    render({ :template => "directors/eldest" })
   end
 end
