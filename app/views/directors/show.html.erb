@@ -1,0 +1,59 @@
+<h1>Director: <%= @director.name %></h1>
+
+<p><strong>DOB:</strong> <%= @director.dob %></p>
+<p><strong>Bio:</strong> <%= @director.bio %></p>
+<p><strong>Image:</strong></p>
+<img src="<%= @director.image %>" style="max-width:300px;">
+
+<form action="/modify_director_record/<%= @director.id %>" method="post">
+  <div>
+    <label for="name_field">Name</label>
+    <input
+      id="name_field"
+      type="text"
+      name="the_name"
+      value="<%= @director.name %>">
+  </div>
+
+  <div>
+    <label for="dob_field">Dob</label>
+    <input
+      id="dob_field"
+      type="text"
+      name="the_dob"
+      value="<%= @director.dob %>">
+  </div>
+
+  <div>
+    <label for="bio_field">Bio</label>
+    <input
+      id="bio_field"
+      type="text"
+      name="the_bio"
+      value="<%= @director.bio %>">
+  </div>
+
+  <div>
+    <label for="image_field">Image</label>
+    <input
+      id="image_field"
+      type="text"
+      name="the_image"
+      value="<%= @director.image %>">
+  </div>
+
+  <button>Update director</button>
+</form>
+
+<hr>
+
+<h2>Movies</h2>
+<ul>
+  <% matching_movies = Movie.where({ :director_id => @director.id }) %>
+  <% matching_movies.each do |movie| %>
+    <li>
+      <%= movie.title %>
+      <a href="/movies/<%= movie.id %>">Show details</a>
+    </li>
+  <% end %>
+</ul>

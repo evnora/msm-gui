@@ -1,0 +1,64 @@
+<h1>Actor: <%= @actor.name %></h1>
+
+<p><strong>DOB:</strong> <%= @actor.dob %></p>
+<p><strong>Bio:</strong> <%= @actor.bio %></p>
+<p><strong>Image:</strong></p>
+<img src="<%= @actor.image %>" style="max-width:300px;">
+
+<form action="/modify_actor_record/<%= @actor.id %>" method="post">
+  <div>
+    <label for="name_field">Name</label>
+    <input
+      id="name_field"
+      type="text"
+      name="the_name"
+      value="<%= @actor.name %>">
+  </div>
+
+  <div>
+    <label for="dob_field">Dob</label>
+    <input
+      id="dob_field"
+      type="text"
+      name="the_dob"
+      value="<%= @actor.dob %>">
+  </div>
+
+  <div>
+    <label for="bio_field">Bio</label>
+    <input
+      id="bio_field"
+      type="text"
+      name="the_bio"
+      value="<%= @actor.bio %>">
+  </div>
+
+  <div>
+    <label for="image_field">Image</label>
+    <input
+      id="image_field"
+      type="text"
+      name="the_image"
+      value="<%= @actor.image %>">
+  </div>
+
+  <button>Update actor</button>
+</form>
+
+<hr>
+
+<h2>Characters</h2>
+<ul>
+  <% Character.where({ :actor_id => @actor.id }).each do |char| %>
+    <li><%= char.name %></li>
+  <% end %>
+</ul>
+
+<h2>Directors</h2>
+<ul>
+  <% Character.where({ :actor_id => @actor.id }).each do |char| %>
+    <% movie = Movie.where({ :id => char.movie_id }).at(0) %>
+    <% director = Director.where({ :id => movie.director_id }).at(0) %>
+    <li><%= director.name %></li>
+  <% end %>
+</ul>
